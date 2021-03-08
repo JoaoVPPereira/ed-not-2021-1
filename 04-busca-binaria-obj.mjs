@@ -1,36 +1,37 @@
-let comps = 0 // Número de comparações
+let comps = 0   // Número de comparações
 
 function buscaBinaria(vetor, fnComp) {
     comps = 0
     let ini = 0
     let fim = vetor.length - 1
     let meio
-    while(fim >= ini) {
+    while (fim >= ini) {
         meio = Math.floor((fim + ini) / 2) // Math.floor() arredonda para baixo
-        if(fnComp(vetor[meio]) === 0) {
-            comps++
-            return meio // Encontrou
+        //console.log({ini, fim, meio, valorBusca})
+        switch(fnComp(vetor[meio])) {
+            case 0:
+                comps++
+                return meio
+
+            case -1:
+                comps+= 2
+                fim = meio - 1
+                break
+                
+            default:
+                comps += 2
+                ini = meio +1
         }
-        else if(fnComp(vetor[meio]) < 0) {
-            comps += 2
-            fim = meio -1
-        }
-        else {
-            comps += 2
-             ini = meio + 1
-        }
+    return -1   // Valor de busca não existe no vetor
     }
-    return -1 // Valor de busca não existe no vetor
 }
-
-
 // Retornos da arrow function para busca binária
 //  0: igualdade
 // -1: o valor de busca é MENOR que o valor do objeto comparado
-//  1: o valor de busca é MAIOR que o valor do objeto comparado
+//  1: o valor de busca é MAIOR que o valor do objeto comparado 
 const comparaNomeBin = obj => {
     if(obj.first_name === 'FAUSTO') return 0
-    else if ('FAUSTO' < obj.first_name) return -1
+    else if('FAUSTO' < obj.first_name) return -1
     else return 1
 }
 
@@ -65,10 +66,13 @@ console.timeEnd('Buscando nome ABRAAO')
 
 console.log(objNomes[posEncontrado], {comps})
 
+// Como o conjunto de dados está ordenado por first_name,
+// a busca binária por group_name falha e retorna -1, como
+// se a informação correspondente não existe no conjunto de dados
 console.time('Buscando group_name MARIA')
 console.log(buscaBinaria(objNomes, obj => {
     const valorBusca = 'MARIA'
-    if(obj.group_name === valorBusca) return 0
+    if(objNomes.group_name === valorBusca) return 0
     else if(valorBusca < obj.group_name) return -1
     else return 1
 }), {comps})
