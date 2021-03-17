@@ -45,9 +45,10 @@ console.log({trocas, pass, comps})
 
 import { nomes } from './includes/100-mil-nomes.mjs'
 
-console.log('Antes', nomes)
+//console.log('Antes', nomes)
 console.time('Ordenando nomes...')
 selectionSort(nomes)
 console.timeEnd('Ordenando nomes...')
-console.log({trocas, comps, pass})
+let memoria = process.memoryUsage().heapUsed / 1024 / 1024
+console.log({trocas, comps, pass, memoria})
 console.log('Depois', nomes)
