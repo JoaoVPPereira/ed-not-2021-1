@@ -22,8 +22,8 @@ function buscaBinaria(vetor, fnComp) {
                 comps += 2
                 ini = meio +1
         }
-    return -1   // Valor de busca não existe no vetor
     }
+    return -1   // Valor de busca não existe no vetor
 }
 // Retornos da arrow function para busca binária
 //  0: igualdade
