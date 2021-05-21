@@ -2,7 +2,7 @@ import { Stack } from './lib/Stack.mjs'
 
 let analisador = new Stack()
 
-let expr = '3 * { 5 - 2 / [3 * 4 + (12 / 5)]}'
+let expr = '3 * { 5 - 2 / ([3 * 4 + (12 / 5)}]}'
 //let expr = '8 - { 5 * (3 + 7])}'
 let info
 
@@ -21,7 +21,7 @@ for(let i = 0; i < expr.length; i++) {
             console.log(analisador.print())
             break
         case '}':
-            info = analisador.pop()
+            info = analisador.pop() // tira da pilha
             if(info && info.tipo == 'CH') {      // Se retornou dados
                 console.log(`Chave aberta na posição ${info.pos} e fechada na posição ${i}`)
             }
@@ -30,7 +30,7 @@ for(let i = 0; i < expr.length; i++) {
             }
             break
         case ']':
-            info = analisador.pop()
+            info = analisador.pop() // tira da pilha
             if(info && info.tipo == 'CO') {      // Se retornou dados
                 console.log(`Colchete aberto na posição ${info.pos} e fechado na posição ${i}`)
             }
@@ -39,7 +39,7 @@ for(let i = 0; i < expr.length; i++) {
             }
             break
         case ')':
-            info = analisador.pop()
+            info = analisador.pop() // tira da pilha
             if(info && info.tipo == 'PA') {      // Se retornou dados
                 console.log(`Parêntese aberto na posição ${info.pos} e fechado na posição ${i}`)
             }
@@ -52,7 +52,7 @@ for(let i = 0; i < expr.length; i++) {
 
 // Verifica se há restos na pilha
 if(! analisador.empty) {
-    while(analisador.size() > 0) {
+    while(!analisador.empty) {
         info = analisador.pop()
         switch(info.tipo) {
             case 'PA':
