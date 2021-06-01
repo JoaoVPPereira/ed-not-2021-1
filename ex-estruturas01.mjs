@@ -5,22 +5,26 @@
     Data de entrega: 26/05, até 11h20, valendo nota de participação
 */
 
-function dec2Bin(decNumber) {
-    var restStack = [],
-    rest,
-    binaryString = ''
+import { Stack } from './lib/Stack.mjs'
 
-    while(decNumber > 0) {
-        rest = Math.floor(decNumber % 2)
-        restStack.push(rest)
-        decNumber - Math.floor(decNumber / 2)
-    }
+const numDecimal = 16
 
-    while(restStack.length > 0) {
-        binaryString += restStack.pop().toString()
-    }
+let num = numDecimal
 
-    return binaryString
+const restos = new Stack()
+
+while(num > 0) {
+    restos.push(num % 2)        // Empilha o resto da divisão do número 2
+    // Corta o número pela metade, desprezando as casas decimais
+    num = Math.floor(num / 2)
 }
 
-console.log(dec2Bin(25))
+console.log(restos.print())
+
+let binario = ''
+
+while(! restos.empty) {
+    binario += restos.pop()
+}
+
+console.log(`${numDecimal} em base 10 equivale a ${binario} em base 2.`)
